@@ -1,4 +1,4 @@
-package com.files.filesystem;
+package com.files.filesystem.files;
 
 public interface FileHandler {
 	public boolean isExists(String fileName);

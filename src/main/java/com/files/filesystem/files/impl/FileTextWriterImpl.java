@@ -1,4 +1,4 @@
-package com.files.filesystem;
+package com.files.filesystem.files.impl;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -7,12 +7,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import com.files.exceptions.FileException;
+import com.files.filesystem.files.FileHandler;
+import com.files.filesystem.files.FilesWriter;
 
-public class FileWritersImpl implements FileWriters {
+public class FileTextWriterImpl implements FilesWriter {
 	FileHandler fileHandler = new FileHandlerImpl();
 
 	@Override
-	public boolean writeInAFile(String[] content, String path) throws FileException {
+	public boolean writeInAFile(String[] content, String path, boolean overwrite) throws FileException {
 		if (fileHandler.isExists(path)) {
 			FileWriter writer = null;
 			PrintWriter printWriter = null;

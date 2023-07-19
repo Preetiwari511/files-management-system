@@ -1,4 +1,4 @@
-package com.files.filesystem;
+package com.files.filesystem.directories.impl;
 
 public interface DirectoryHandler {
 	public boolean isExists(String dirName);

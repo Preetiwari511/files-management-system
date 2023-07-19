@@ -1,7 +1,9 @@
-package com.files.filesystem;
+package com.files.filesystem.files.impl;
 
 import java.io.File;
 import java.io.IOException;
+
+import com.files.filesystem.files.FileHandler;
 
 public class FileHandlerImpl implements FileHandler {
 

@@ -1,4 +1,4 @@
-package com.files.filesystem;
+package com.files.filesystem.files.impl;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -7,8 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.files.exceptions.FileException;
+import com.files.filesystem.files.FileHandler;
+import com.files.filesystem.files.FilesReader;
 
-public class FileReaderImpl implements FileReaders {
+public class FilesTextReaderImpl implements FilesReader {
 	FileHandler fileHandler = new FileHandlerImpl();
 	@Override
 	public List<String> readFile(String fileName) throws  FileException {
