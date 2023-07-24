@@ -15,7 +15,7 @@ public class FileTextWriterImpl implements FilesWriter {
 
 	@Override
 	public boolean writeInAFile(String[] content, String path, boolean overwrite) throws FileException {
-		if (fileHandler.isExists(path)) {
+		if (!fileHandler.isExists(path)) {
 			FileWriter writer = null;
 			PrintWriter printWriter = null;
 			try {
@@ -34,15 +34,36 @@ public class FileTextWriterImpl implements FilesWriter {
 				printWriter.close();
 			}
 			return true;
+			
+		} else if (overwrite) {
+			FileWriter writer = null;
+			PrintWriter printWriter = null;
+			try {
+				fileHandler.delete(path);
+				fileHandler.createIfNotExist(path);
+				writer = new FileWriter(path);
+				printWriter = new PrintWriter(writer);
+				if (content != null) {
+					for (String str : content) {
+						printWriter.println(str);
+					}
+					printWriter.flush();
+				}
+			} catch (IOException e) {
+				throw new FileException("Failed to write in the file -" + path, e);
+			} finally {
+				printWriter.close();
+			}
+			return true;
+			
+
 		} else
 			throw new FileException("File not Found -" + path, new RuntimeException());
 	}
 
 	@Override
-	public boolean writeInAFileFromOtherFile(String path1, String path2) throws FileException 
-	{
-		if (fileHandler.isExists(path1) && fileHandler.isExists(path2)) 
-		{
+	public boolean writeInAFileFromOtherFile(String path1, String path2) throws FileException {
+		if (fileHandler.isExists(path1) && fileHandler.isExists(path2)) {
 			FileWriter writer = null;
 			PrintWriter printWriter = null;
 			FileReader fileReader = null;
@@ -53,8 +74,7 @@ public class FileTextWriterImpl implements FilesWriter {
 				fileReader = new FileReader(path2);
 				bufferedReader = new BufferedReader(fileReader);
 				String line = bufferedReader.readLine();
-				while (line != null) 
-				{
+				while (line != null) {
 					printWriter.println(line);
 					line = bufferedReader.readLine();
 				}
@@ -77,4 +97,3 @@ public class FileTextWriterImpl implements FilesWriter {
 	}
 
 }
-

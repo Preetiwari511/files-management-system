@@ -50,7 +50,7 @@ public class FileHandlerImpl implements FileHandler {
 			}
 			return fileList;
 		}
-		else throw new FileException("Direcory doesn't exists ", new RuntimeException());
+		else throw new FileException("Directory doesn't exists ", new RuntimeException());
 	}
 
 }
