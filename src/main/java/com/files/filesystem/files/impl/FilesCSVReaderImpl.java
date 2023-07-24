@@ -11,7 +11,7 @@ import com.files.exceptions.FileException;
 import com.files.filesystem.files.FileHandler;
 import com.files.filesystem.files.FilesReader;
 
-public class FilesCSVReader implements FilesReader {
+public class FilesCSVReaderImpl implements FilesReader {
 	FileHandler fileHandler = new FileHandlerImpl();
 
 	@Override

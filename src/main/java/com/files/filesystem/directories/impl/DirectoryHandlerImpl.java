@@ -30,7 +30,7 @@ public class DirectoryHandlerImpl implements DirectoryHandler {
 	}
 
 	@Override
-	public List getListOfSubDirectories(String dirName) throws FileException {
+	public List<String> getListOfSubDirectories(String dirName) throws FileException {
 		if(isExists(dirName)) {
 			File file = new File(dirName);
 			List<String> list = new ArrayList<>();

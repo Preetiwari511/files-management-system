@@ -8,7 +8,7 @@ public interface DirectoryHandler {
 	public boolean isExists(String dirName);
 	public boolean createIfNotExist(String dirName);
 	public boolean delete(String dirName);
-	public List getListOfSubDirectories(String dirName) throws FileException; 
+	public List<String> getListOfSubDirectories(String dirName) throws FileException; 
 	public String[] getListOfDirAndFilesUnderDirectory(String dirName) throws FileException;
 	
 }
