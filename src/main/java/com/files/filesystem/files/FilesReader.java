@@ -5,5 +5,5 @@ import java.util.List;
 import com.files.exceptions.FileException;
 
 public interface FilesReader {
-	public List<String> readFile(String fileName) throws FileException;
+	public List readFile(String fileName) throws FileException;
 }
