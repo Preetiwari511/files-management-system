@@ -15,15 +15,16 @@ public class FileTextWriterImpl implements FilesWriter {
 	FileHandler fileHandler = new FileHandlerImpl();
 
 	@Override
-	public boolean writeInAFile(List<String[]> content, String path, boolean overwrite) throws FileException {
+	public boolean writeInAFile(List content, String path, boolean overwrite) throws FileException {
 		if (!fileHandler.isExists(path)) {
 			FileWriter writer = null;
 			PrintWriter printWriter = null;
+			fileHandler.createIfNotExist(path);
 			try {
 				writer = new FileWriter(path);
 				printWriter = new PrintWriter(writer);
 				if (!content.isEmpty()) {
-					for (String[] str : content) {
+					for (Object str : content) {
 						printWriter.println(str);
 					}
 					printWriter.flush();
@@ -45,7 +46,7 @@ public class FileTextWriterImpl implements FilesWriter {
 				writer = new FileWriter(path);
 				printWriter = new PrintWriter(writer);
 				if (!content.isEmpty()) {
-					for (String[] str : content) {
+					for (Object str : content) {
 						printWriter.println(str);
 					}
 					printWriter.flush();

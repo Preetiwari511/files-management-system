@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.files.exceptions.FileException;
@@ -21,16 +22,17 @@ public class FilesCSVReaderImpl implements FilesReader {
 		if (fileHandler.isExists(fileName)) {
 			String line = "";
 			String splitBy = ",";
-			List<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+			List<LinkedHashMap<String, String>> list = new ArrayList<LinkedHashMap<String, String>>();
 			try {
 				reader = new FileReader(fileName);
 				bufferedReader = new BufferedReader(reader);
-				HashMap<String, String> map = new HashMap<>();
+				
 				if ((line = bufferedReader.readLine()) != null) {
 					String[] headers = line.split(splitBy);
 					while ((line = bufferedReader.readLine()) != null) {
 						String[] data = line.split(splitBy);
-						for (int i = 0; i < headers.length; i++) {
+						LinkedHashMap<String, String> map = new LinkedHashMap<>();
+						for (int i = 0; i<headers.length; i++) {
 							map.put(headers[i], data[i]);
 						}
 						list.add(map);
