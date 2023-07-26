@@ -60,7 +60,7 @@ public class FileTextWriterImpl implements FilesWriter {
 			
 
 		} else
-			throw new FileException("File not Found -" + path, new RuntimeException());
+			throw new FileException("Cannot overwrite in the file -" + path, new RuntimeException());
 	}
 
 	@Override
@@ -95,7 +95,7 @@ public class FileTextWriterImpl implements FilesWriter {
 			}
 			return true;
 		} else
-			throw new FileException("File not found ", new RuntimeException());
+			throw new FileException("Cannot overwrite in the file ", new RuntimeException());
 	}
 
 }

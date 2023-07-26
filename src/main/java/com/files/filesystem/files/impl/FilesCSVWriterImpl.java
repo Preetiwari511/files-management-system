@@ -86,7 +86,7 @@ public class FilesCSVWriterImpl implements FilesWriter {
 			return true;
 
 		}
-		return false;
+		else throw new FileException("Cannot overwite the file- " + path, new RuntimeException()) ;
 	}
 
 	@Override
