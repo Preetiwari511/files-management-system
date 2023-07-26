@@ -1,19 +1,13 @@
 package com.files.filesystem.files.impl;
 
-import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
-import com.files.exceptions.FileException;
-import com.files.filesystem.files.FileHandler;
+import com.files.filesystem.exceptions.FileException;
 import com.files.filesystem.files.FilesReader;
-import com.files.filesystem.files.FilesWriter;
 
 public class TestFile {
 
+	// TODO: Move this class to test source directory
 	public static void main(String[] args) throws FileException {
 //		FilesWriter filesWriter = new FilesCSVWriterImpl();
 //		List list = new ArrayList();
@@ -37,7 +31,7 @@ public class TestFile {
 //		boolean isWrite= filesWriter.writeInAFile(list, "C:\\Users\\preeti.tiwari\\Documents\\Files\\textFile.txt", true);
 //		System.out.println(isWrite);
 //		
-		FilesReader filesReader = new FilesTextReaderImpl();
+		FilesReader filesReader = new TextFilesReaderImpl();
 		List list2 = filesReader.readFile("C:\\Users\\preeti.tiwari\\Documents\\Files\\textFile.txt");
 		for(Object obj: list2) {
 			System.out.println(obj);

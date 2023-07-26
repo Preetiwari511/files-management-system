@@ -7,15 +7,17 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-import com.files.exceptions.FileException;
-import com.files.filesystem.files.FileHandler;
+import com.files.filesystem.directories.FileHandler;
+import com.files.filesystem.directories.impl.FileHandlerImpl;
+import com.files.filesystem.exceptions.FileException;
 import com.files.filesystem.files.FilesWriter;
 
-public class FileTextWriterImpl implements FilesWriter {
+public class TextFileWriterImpl implements FilesWriter {
 	FileHandler fileHandler = new FileHandlerImpl();
 
+	// TODO:	Duplicate/Redundant code  
 	@Override
-	public boolean writeInAFile(List content, String path, boolean overwrite) throws FileException {
+	public boolean writeInAFile(List<?> content, String path, boolean overwrite) throws FileException {
 		if (!fileHandler.isExists(path)) {
 			FileWriter writer = null;
 			PrintWriter printWriter = null;

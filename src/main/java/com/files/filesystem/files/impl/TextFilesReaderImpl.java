@@ -6,11 +6,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.files.exceptions.FileException;
-import com.files.filesystem.files.FileHandler;
+import com.files.filesystem.directories.FileHandler;
+import com.files.filesystem.directories.impl.FileHandlerImpl;
+import com.files.filesystem.exceptions.FileException;
 import com.files.filesystem.files.FilesReader;
 
-public class FilesTextReaderImpl implements FilesReader {
+public class TextFilesReaderImpl implements FilesReader {
 	FileHandler fileHandler = new FileHandlerImpl();
 	@Override
 	public List<String> readFile(String fileName) throws  FileException {

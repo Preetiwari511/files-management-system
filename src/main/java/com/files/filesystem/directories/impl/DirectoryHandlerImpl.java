@@ -4,7 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.files.exceptions.FileException;
+import com.files.filesystem.directories.DirectoryHandler;
+import com.files.filesystem.exceptions.FileException;
 
 public class DirectoryHandlerImpl implements DirectoryHandler {
 
@@ -30,7 +31,7 @@ public class DirectoryHandlerImpl implements DirectoryHandler {
 	}
 
 	@Override
-	public List<String> getListOfSubDirectories(String dirName) throws FileException {
+	public List<String> listSubDirectories(String dirName) throws FileException {
 		if(isExists(dirName)) {
 			File file = new File(dirName);
 			List<String> list = new ArrayList<>();
@@ -46,7 +47,7 @@ public class DirectoryHandlerImpl implements DirectoryHandler {
 	}
 
 	@Override
-	public String[] getListOfDirAndFilesUnderDirectory(String dirName) throws FileException {
+	public String[] listFilesAndSubDirectories(String dirName) throws FileException {
 		if(isExists(dirName)) {
 			File file = new File (dirName);
 			return file.list();

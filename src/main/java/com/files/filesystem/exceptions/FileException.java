@@ -1,4 +1,4 @@
-package com.files.exceptions;
+package com.files.filesystem.exceptions;
 
 public class FileException extends Exception {
 	private String message;

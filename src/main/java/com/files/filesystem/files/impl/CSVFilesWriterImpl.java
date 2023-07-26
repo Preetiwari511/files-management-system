@@ -7,16 +7,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.files.exceptions.FileException;
-import com.files.filesystem.files.FileHandler;
+import com.files.filesystem.directories.FileHandler;
+import com.files.filesystem.directories.impl.FileHandlerImpl;
+import com.files.filesystem.exceptions.FileException;
 import com.files.filesystem.files.FilesWriter;
 import com.opencsv.CSVWriter;
 
-public class FilesCSVWriterImpl implements FilesWriter {
+public class CSVFilesWriterImpl implements FilesWriter {
 	FileHandler fileHandler = new FileHandlerImpl();
 
+	// TODO:	Duplicate/Redundant code  
 	@Override
-	public boolean writeInAFile(List content, String path, boolean overwrite) throws FileException {
+	public boolean writeInAFile(List<?> content, String path, boolean overwrite) throws FileException {
 		if (!fileHandler.isExists(path)) {
 			FileWriter writer = null;
 			PrintWriter printWriter = null;

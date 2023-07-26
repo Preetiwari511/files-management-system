@@ -8,15 +8,16 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import com.files.exceptions.FileException;
-import com.files.filesystem.files.FileHandler;
+import com.files.filesystem.directories.FileHandler;
+import com.files.filesystem.directories.impl.FileHandlerImpl;
+import com.files.filesystem.exceptions.FileException;
 import com.files.filesystem.files.FilesReader;
 
-public class FilesCSVReaderImpl implements FilesReader {
+public class CSVFilesReaderImpl implements FilesReader {
 	FileHandler fileHandler = new FileHandlerImpl();
 
 	@Override
-	public List readFile(String fileName) throws FileException {
+	public List<?> readFile(String fileName) throws FileException {
 		BufferedReader bufferedReader = null;
 		FileReader reader = null;
 		if (fileHandler.isExists(fileName)) {
