@@ -10,6 +10,6 @@ public interface DirectoryHandler {
 	public boolean delete(String dirName);
 	public List<String> listSubDirectories(String dirName) throws FileException; 
 	// TODO:	change return type to List<String>
-	public String[] listFilesAndSubDirectories(String dirName) throws FileException;
+	public List<String> listFilesAndSubDirectories(String dirName) throws FileException;
 	
 }

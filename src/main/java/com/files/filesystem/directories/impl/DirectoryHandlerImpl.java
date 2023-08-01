@@ -37,7 +37,7 @@ public class DirectoryHandlerImpl implements DirectoryHandler {
 			List<String> list = new ArrayList<>();
 			String[] allFiles = file.list();
 			for(String name : allFiles) {
-				if(isExists(name)) {
+				if(isExists(dirName +"//"+name)) {
 					list.add(name);
 				}
 			}
@@ -47,10 +47,15 @@ public class DirectoryHandlerImpl implements DirectoryHandler {
 	}
 
 	@Override
-	public String[] listFilesAndSubDirectories(String dirName) throws FileException {
+	public List<String> listFilesAndSubDirectories(String dirName) throws FileException {
 		if(isExists(dirName)) {
 			File file = new File (dirName);
-			return file.list();
+			String[] stringStore = file.list();
+			List<String> list = new ArrayList<>();
+			for(String str : stringStore) {
+				list.add(str);
+			}
+			return list;
 		}
 		else throw new FileException("Directory doesn't exists",new RuntimeException());
 		}

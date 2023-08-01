@@ -15,12 +15,13 @@ import com.files.filesystem.files.FilesWriter;
 public class TextFileWriterImpl implements FilesWriter {
 	FileHandler fileHandler = new FileHandlerImpl();
 
-	// TODO:	Duplicate/Redundant code  
+	// Re-Factored code
 	@Override
 	public boolean writeInAFile(List<?> content, String path, boolean overwrite) throws FileException {
-		if (!fileHandler.isExists(path)) {
+		if (!fileHandler.isExists(path) || overwrite) {
 			FileWriter writer = null;
 			PrintWriter printWriter = null;
+			fileHandler.delete(path);
 			fileHandler.createIfNotExist(path);
 			try {
 				writer = new FileWriter(path);
@@ -38,14 +39,12 @@ public class TextFileWriterImpl implements FilesWriter {
 				printWriter.close();
 			}
 			return true;
-			
-		} else if (overwrite) {
+
+		} else if (!overwrite) {
 			FileWriter writer = null;
 			PrintWriter printWriter = null;
 			try {
-				fileHandler.delete(path);
-				fileHandler.createIfNotExist(path);
-				writer = new FileWriter(path);
+				writer = new FileWriter(path, true);
 				printWriter = new PrintWriter(writer);
 				if (!content.isEmpty()) {
 					for (Object str : content) {
@@ -59,7 +58,6 @@ public class TextFileWriterImpl implements FilesWriter {
 				printWriter.close();
 			}
 			return true;
-			
 
 		} else
 			throw new FileException("Cannot overwrite in the file -" + path, new RuntimeException());

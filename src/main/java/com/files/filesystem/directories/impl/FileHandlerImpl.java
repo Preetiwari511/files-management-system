@@ -39,12 +39,12 @@ public class FileHandlerImpl implements FileHandler {
 	@Override
 	public List<String> listFiles(String dirName) throws FileException {
 		File file = new File (dirName);	
-		if(file.isFile()) {
+		if(file.isDirectory()) {
 			String[] nameList = file.list();
 			List<String> fileList = new ArrayList<>(0);
 			
 			for(String name : nameList) {
-				if(isExists(name)) {
+				if(isExists(dirName+"\\"+name)) {
 					fileList.add(name);
 				}
 			}

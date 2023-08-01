@@ -1,5 +1,6 @@
 package com.files.filesystem.files;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.files.filesystem.exceptions.FileException;
