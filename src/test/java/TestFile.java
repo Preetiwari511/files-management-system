@@ -11,6 +11,7 @@ import com.files.filesystem.directories.impl.FileHandlerImpl;
 import com.files.filesystem.exceptions.FileException;
 import com.files.filesystem.files.FilesWriter;
 import com.files.filesystem.files.impl.CSVFilesWriterImpl;
+import com.files.filesystem.files.impl.JSONFIlesWriterImpl;
 
 public class TestFile {
 
@@ -48,7 +49,7 @@ public class TestFile {
 //			System.out.println(obj);
 
 		// Test DirectoryHandlerImpl
-		DirectoryHandler directoryHandler = new DirectoryHandlerImpl();
+//		DirectoryHandler directoryHandler = new DirectoryHandlerImpl();
 //	    boolean result = directoryHandler.isExists("C:\\Users\\preeti.tiwari\\Documents\\Files\\Directory1");
 //	    System.out.println(result);
 //	    boolean isCreated = directoryHandler.createIfNotExist("C:\\Users\\preeti.tiwari\\Documents\\Files\\Directory1");
@@ -59,10 +60,10 @@ public class TestFile {
 //	    for(String str :list) {
 //	    	System.out.println(str);
 //	    }
-	    List<String> listAll =  directoryHandler.listFilesAndSubDirectories("C:\\Users\\preeti.tiwari\\Documents\\Files");
-	    for(String str: listAll) {
-	    	System.out.println(str);
-	    }
+//	    List<String> listAll =  directoryHandler.listFilesAndSubDirectories("C:\\Users\\preeti.tiwari\\Documents\\Files");
+//	    for(String str: listAll) {
+//	    	System.out.println(str);
+//	    }
 		
 		//Test FileHonadlerImpl
 //		FileHandler fileHandler = new FileHandlerImpl();
@@ -75,7 +76,22 @@ public class TestFile {
 //		List<String> list1 = fileHandler.listFiles("C:\\Users\\preeti.tiwari\\Documents\\Files");
 //		for(String str : list1) {
 //			System.out.println(str);
-//	    }
+//		    }
+	    
+	    List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+		Map<String, String> map1 = new LinkedHashMap<String, String>();
+		Map<String, String> map2 = new LinkedHashMap<String, String>();
+		map1.put("S_no.","01");
+		map1.put("Name","Piya Tiwari");
+		map1.put("Class", "II");
+		list.add(map1);
+		map2.put("S_no.","02");
+		map2.put("Name","Jiya Tiwari");
+		map2.put("Class", "III");
+		list.add(map2);
+		FilesWriter filesWriter = new JSONFIlesWriterImpl();
+		boolean isWritten = filesWriter.writeInAFile(list,"C:\\Users\\preeti.tiwari\\Documents\\Files\\file.json",true);
+		System.out.println(isWritten);
 	}
 
 }
