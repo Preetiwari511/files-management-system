@@ -17,13 +17,13 @@ public class TextFilesReaderImpl implements FilesReader {
 	public List<String> readFile(String fileName) throws  FileException {
 		BufferedReader bufferedReader = null;
 		FileReader reader = null;
-		if (fileHandler.isExists(fileName)) {
+		if (fileHandler.isFileExists(fileName)) {
 			List<String> list = new ArrayList<String>(); 
 			try  {
 			    reader = new FileReader(fileName);
 				bufferedReader = new BufferedReader(reader);
 				String line = bufferedReader.readLine();
-				while (line != null) {
+				while (line != bufferedReader.readLine()) {
 					list.add(line);
 					line = bufferedReader.readLine();
 				}

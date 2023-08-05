@@ -17,8 +17,8 @@ public class TextFileWriterImpl implements FilesWriter {
 
 	// Re-Factored code
 	@Override
-	public boolean writeInAFile(List<?> content, String path, boolean overwrite) throws FileException {
-		if (!fileHandler.isExists(path) || overwrite) {
+	public boolean writeFile(List<?> content, String path, boolean overwrite) throws FileException {
+		if (!fileHandler.isFileExists(path) || overwrite) {
 			FileWriter writer = null;
 			PrintWriter printWriter = null;
 			fileHandler.delete(path);
@@ -64,8 +64,8 @@ public class TextFileWriterImpl implements FilesWriter {
 	}
 
 	@Override
-	public boolean writeInAFileFromOtherFile(String path1, String path2) throws FileException {
-		if (fileHandler.isExists(path1) && fileHandler.isExists(path2)) {
+	public boolean copyFile(String path1, String path2) throws FileException {
+		if (fileHandler.isFileExists(path1) && fileHandler.isFileExists(path2)) {
 			FileWriter writer = null;
 			PrintWriter printWriter = null;
 			FileReader fileReader = null;

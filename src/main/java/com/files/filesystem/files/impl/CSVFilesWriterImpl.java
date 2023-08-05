@@ -17,17 +17,34 @@ public class CSVFilesWriterImpl implements FilesWriter {
 
 	// Re-factored the code.
 	@Override
-	public boolean writeInAFile(List<?> content, String path, boolean overwrite) throws FileException {
-		if (!fileHandler.isExists(path)|| overwrite) {
+	public boolean writeFile(List<?> content, String path, boolean append) throws FileException {
+		
+		FileWriter writer = null;
+		PrintWriter printWriter = null; 
+		
+		if (!fileHandler.isFileExists(path)) {
+			fileHandler.createIfNotExist(path);
+		}
+		
+		
+		
+		
+		if (!fileHandler.isFileExists(path)|| append) {
+			
+		} else {
+			
+		}
+		
+		/*if (!fileHandler.isFileExists(path)|| append) {
 			FileWriter writer = null;
 			PrintWriter printWriter = null;
 			fileHandler.delete(path);
 			fileHandler.createIfNotExist(path);
 			try {
-				writer = new FileWriter(path);
+				writer = new FileWriter(path, false);
 				printWriter = new PrintWriter(writer);
 				if (!content.isEmpty()) {
-					writeDataToPrintWriter(content, printWriter);
+					writeData(content, printWriter);
 				}
 				return true;
 			} catch (IOException e) {
@@ -36,14 +53,14 @@ public class CSVFilesWriterImpl implements FilesWriter {
 				printWriter.close();
 			}
 			
-		} else if (!overwrite) {
+		} else if (!append) {
 			FileWriter writer = null;
 			PrintWriter printWriter = null;
 			try {
 				writer = new FileWriter(path,true);
 				printWriter = new PrintWriter(writer);
 				if (!content.isEmpty()) {
-					 writeDataToPrintWriter(content, printWriter);
+					 writeData(content, printWriter);
 				}
 			} catch (IOException e) {
 				throw new FileException("Failed to write in the file -" + path, e);
@@ -54,15 +71,19 @@ public class CSVFilesWriterImpl implements FilesWriter {
 
 		}
 		else throw new FileException("Cannot overwite the file- " + path, new RuntimeException()) ;
+		
+		*/
+		
+		return false;
 	}
 
 	@Override
-	public boolean writeInAFileFromOtherFile(String path1, String path2) throws FileException {
+	public boolean copyFile(String path1, String path2) throws FileException {
 		// TODO Auto-generated method stub
 		return false;
 	}
 	
-	private void writeDataToPrintWriter(List<?> content, PrintWriter printWriter) {
+	private void writeData(List<?> content, PrintWriter printWriter) {
 		Map<?,?> data = (Map<?, ?>) content.get(0);
 		Set<?> keys = data.keySet();
 		for (Object header : keys) {

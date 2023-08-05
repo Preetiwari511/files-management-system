@@ -11,7 +11,7 @@ import com.files.filesystem.exceptions.FileException;
 public class FileHandlerImpl implements FileHandler {
 
 	@Override
-	public boolean isExists(String fileName) {
+	public boolean isFileExists(String fileName) {
 		File file = new File(fileName);
 		return file.isFile();
 	}
@@ -44,7 +44,10 @@ public class FileHandlerImpl implements FileHandler {
 			List<String> fileList = new ArrayList<>(0);
 			
 			for(String name : nameList) {
-				if(isExists(dirName+"\\"+name)) {
+//				File.separator
+//				if(isFileExists(dirName+File.separator+name)) {
+				// OS based code
+				if(isFileExists(dirName+"\\"+name)) {
 					fileList.add(name);
 				}
 			}

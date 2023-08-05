@@ -16,7 +16,7 @@ public class JSONFilesReaderImpl implements FilesReader {
 
 	@Override
 	public List<?> readFile(String fileName) throws FileException {
-		if (fileHandler.isExists(fileName)) {
+		if (fileHandler.isFileExists(fileName)) {
 			ObjectMapper objectMapper = new ObjectMapper();
 			try {
 				File file = new File(fileName);

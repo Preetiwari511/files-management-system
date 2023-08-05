@@ -90,7 +90,7 @@ public class TestFile {
 		map2.put("Class", "III");
 		list.add(map2);
 		FilesWriter filesWriter = new JSONFIlesWriterImpl();
-		boolean isWritten = filesWriter.writeInAFile(list,"C:\\Users\\preeti.tiwari\\Documents\\Files\\file.json",true);
+		boolean isWritten = filesWriter.writeFile(list,"C:\\Users\\preeti.tiwari\\Documents\\Files\\file.json",true);
 		System.out.println(isWritten);
 	}
 

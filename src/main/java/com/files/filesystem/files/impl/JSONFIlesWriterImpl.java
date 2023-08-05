@@ -19,8 +19,8 @@ public class JSONFIlesWriterImpl implements FilesWriter {
 	FileHandler filesHandler = new FileHandlerImpl();
 
 	@Override
-	public boolean writeInAFile(List<?> content, String path, boolean overwrite) throws FileException {
-		if (!filesHandler.isExists(path) || overwrite) {
+	public boolean writeFile(List<?> content, String path, boolean overwrite) throws FileException {
+		if (!filesHandler.isFileExists(path) || overwrite) {
 			JSONArray dataArray = putDataToJSONarray(content);
 			FileWriter fileWriter = null;
 			PrintWriter printWriter = null;
@@ -57,7 +57,7 @@ public class JSONFIlesWriterImpl implements FilesWriter {
 	}
 
 	@Override
-	public boolean writeInAFileFromOtherFile(String path1, String path2) throws FileException {
+	public boolean copyFile(String path1, String path2) throws FileException {
 
 		return false;
 	}

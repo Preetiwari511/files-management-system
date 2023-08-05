@@ -13,47 +13,47 @@ import com.files.filesystem.exceptions.FileException;
 import com.files.filesystem.files.FilesReader;
 
 public class CSVFilesReaderImpl implements FilesReader {
-	FileHandler fileHandler = new FileHandlerImpl();
+	
+	private FileHandler fileHandler = new FileHandlerImpl();
+	private static final String CSV_SEPERATOR = ",";
 
 	@Override
 	public List<?> readFile(String fileName) throws FileException {
 		BufferedReader bufferedReader = null;
 		FileReader reader = null;
-		if (fileHandler.isExists(fileName)) {
+		if (fileHandler.isFileExists(fileName)) {
 			String line = "";
-			String splitBy = ",";
 			List<LinkedHashMap<String, String>> list = new ArrayList<LinkedHashMap<String, String>>();
 			try {
 				reader = new FileReader(fileName);
 				bufferedReader = new BufferedReader(reader);
-				
+
 				if ((line = bufferedReader.readLine()) != null) {
-					String[] headers = line.split(splitBy);
+					String[] headers = line.split(CSV_SEPERATOR);
 					while ((line = bufferedReader.readLine()) != null) {
-						String[] data = line.split(splitBy);
+						String[] data = line.split(CSV_SEPERATOR);
 						LinkedHashMap<String, String> map = new LinkedHashMap<>();
-						for (int i = 0; i<headers.length; i++) {
+						for (int i = 0; i < headers.length; i++) {
 							map.put(headers[i], data[i]);
 						}
 						list.add(map);
 					}
 				}
 			} catch (IOException e) {
-				throw new FileException("Failed to read file - " + fileName , e  );
-			}finally {
+				throw new FileException("Failed to read file - " + fileName, e);
+			} finally {
 				try {
 					bufferedReader.close();
 					reader.close();
 				} catch (IOException e) {
-					throw new FileException("Failed to read file - " + fileName , e  );
+					throw new FileException("Failed to read file - " + fileName, e);
 				}
 			}
 			return list;
+		} else {
+			throw new FileException("File Not Found!", new RuntimeException());
 		}
-		else {
-			throw new FileException("File Not Found!", new RuntimeException()); 
-		}
-		
+
 	}
 
 }

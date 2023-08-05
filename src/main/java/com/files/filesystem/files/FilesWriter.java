@@ -1,11 +1,12 @@
 package com.files.filesystem.files;
 
-import java.io.IOException;
 import java.util.List;
 
 import com.files.filesystem.exceptions.FileException;
 
 public interface FilesWriter {
-	public boolean writeInAFile(List<?> content ,String path, boolean overwrite) throws FileException;
-	public boolean writeInAFileFromOtherFile(String path1,String path2)throws FileException;
+	
+	public boolean writeFile(List<?> data, String filePath, boolean append) throws FileException;
+
+	public boolean copyFile(String sourceFile, String destFile) throws FileException;
 }

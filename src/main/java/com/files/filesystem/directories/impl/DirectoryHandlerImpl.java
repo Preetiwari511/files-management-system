@@ -2,6 +2,7 @@ package com.files.filesystem.directories.impl;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.files.filesystem.directories.DirectoryHandler;
@@ -10,14 +11,14 @@ import com.files.filesystem.exceptions.FileException;
 public class DirectoryHandlerImpl implements DirectoryHandler {
 
 	@Override
-	public boolean isExists(String dirName) {
+	public boolean isDirectoryExists(String dirName) {
 		File file = new File(dirName);
 		return file.isDirectory();
 	}
 
 	@Override
 	public boolean createIfNotExist(String dirName) {
-		if(!isExists(dirName)) {
+		if (!isDirectoryExists(dirName)) {
 			File file = new File(dirName);
 			return file.mkdir();
 		}
@@ -32,31 +33,33 @@ public class DirectoryHandlerImpl implements DirectoryHandler {
 
 	@Override
 	public List<String> listSubDirectories(String dirName) throws FileException {
-		if(isExists(dirName)) {
+		if (isDirectoryExists(dirName)) {
 			File file = new File(dirName);
 			List<String> list = new ArrayList<>();
 			String[] allFiles = file.list();
-			for(String name : allFiles) {
-				if(isExists(dirName +"//"+name)) {
+			for (String name : allFiles) {
+//				OS based code
+				if (isDirectoryExists(dirName + "//" + name)) {
 					list.add(name);
 				}
 			}
 			return list;
-		}
-		else throw new FileException("Directory Not Found!", new RuntimeException());
+		} else
+			throw new FileException("Directory Not Found!", new RuntimeException());
 	}
 
 	@Override
 	public List<String> listFilesAndSubDirectories(String dirName) throws FileException {
-		if(isExists(dirName)) {
-			File file = new File (dirName);
+		if (isDirectoryExists(dirName)) {
+			File file = new File(dirName);
 			String[] stringStore = file.list();
 			List<String> list = new ArrayList<>();
-			for(String str : stringStore) {
+//			Arrays.asList(stringStore);
+			for (String str : stringStore) {
 				list.add(str);
 			}
 			return list;
-		}
-		else throw new FileException("Directory doesn't exists",new RuntimeException());
-		}
+		} else
+			throw new FileException("Directory doesn't exists", new RuntimeException());
+	}
 }
