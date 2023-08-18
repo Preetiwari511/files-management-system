@@ -1,10 +1,12 @@
 package com.files.filesystem.files.impl;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
 import java.util.List;
 
 import com.files.filesystem.directories.FileHandler;
@@ -61,10 +63,5 @@ public class TextFileWriterImpl implements FilesWriter {
 			throw new FileException("Cannot overwrite in the file -" + path, new RuntimeException());
 	}
 
-	@Override
-	public boolean copyFile(String path1, String path2) throws FileException {
-		
-		return false;
 
-	}
 }

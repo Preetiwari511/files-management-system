@@ -13,4 +13,6 @@ public interface FileHandler {
 	public boolean delete(String fileName);
 
 	public List<String> listFiles(String dirName) throws FileException;
+	
+	public boolean copyFile(String sourcePath, String destinationPath) throws FileException;
 }

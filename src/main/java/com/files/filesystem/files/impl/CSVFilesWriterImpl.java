@@ -40,11 +40,7 @@ public class CSVFilesWriterImpl implements FilesWriter {
 		}
 	}
 
-	@Override
-	public boolean copyFile(String path1, String path2) throws FileException {
-		// TODO Auto-generated method stub
-		return false;
-	}
+
 
 	private void writeData(List<?> content, PrintWriter printWriter) {
 		Map<?, ?> data = (Map<?, ?>) content.get(0);

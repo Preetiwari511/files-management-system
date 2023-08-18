@@ -40,11 +40,7 @@ public class JSONFilesWriterImpl implements FilesWriter {
 			return true;
 		}
 
-	@Override
-	public boolean copyFile(String path1, String path2) throws FileException {
 
-		return false;
-	}
 
 	private JSONArray putDataToJSONarray(List<?> content) {
 		JSONArray dataList = new JSONArray();

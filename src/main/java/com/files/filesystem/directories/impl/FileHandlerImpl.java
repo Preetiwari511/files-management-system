@@ -2,6 +2,10 @@ package com.files.filesystem.directories.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +58,23 @@ public class FileHandlerImpl implements FileHandler {
 			return fileList;
 		}
 		else throw new FileException("Directory doesn't exists ", new RuntimeException());
+	}
+	
+	@Override
+	public boolean copyFile(String sourcePath, String destinationPath) throws FileException {
+		System.out.println(sourcePath);
+		System.out.println(destinationPath);
+		
+		Path sourceFile = Paths.get(sourcePath);
+		Path desFile = Paths.get(destinationPath + sourceFile.getFileName().toString() + "-copy");
+	    try {
+	        Files.copy(sourceFile, desFile);
+	        return true ; 
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+		return false;
+
 	}
 
 }

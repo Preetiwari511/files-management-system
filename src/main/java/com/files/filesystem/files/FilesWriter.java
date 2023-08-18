@@ -8,5 +8,4 @@ public interface FilesWriter {
 	
 	public boolean writeFile(List<?> data, String filePath, boolean append) throws FileException;
 
-	public boolean copyFile(String sourceFile, String destFile) throws FileException;
 }
