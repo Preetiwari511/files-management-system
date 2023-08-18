@@ -2,7 +2,6 @@ package com.files.filesystem.directories.impl;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import com.files.filesystem.directories.DirectoryHandler;

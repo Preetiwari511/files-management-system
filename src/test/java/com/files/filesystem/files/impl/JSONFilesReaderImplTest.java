@@ -3,9 +3,7 @@ package com.files.filesystem.files.impl;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
-
 import org.junit.Test;
-
 import com.files.filesystem.exceptions.FileException;
 import com.files.filesystem.files.FilesReader;
 

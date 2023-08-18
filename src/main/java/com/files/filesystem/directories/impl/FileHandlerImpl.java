@@ -18,9 +18,9 @@ public class FileHandlerImpl implements FileHandler {
 
 	@Override
 	public boolean createIfNotExist(String fileName) {
-		File file = new File(fileName);
-		if(!file.isFile()) {
+		if(!isFileExists(fileName)) {
 			try {
+				File file = new File(fileName);
 				return file.createNewFile();
 			} catch (IOException e) {
 				e.printStackTrace();

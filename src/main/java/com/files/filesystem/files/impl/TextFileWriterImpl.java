@@ -14,11 +14,9 @@ import com.files.filesystem.files.FilesWriter;
 
 public class TextFileWriterImpl implements FilesWriter {
 	FileHandler fileHandler = new FileHandlerImpl();
-
-	// Re-Factored code
 	@Override
-	public boolean writeFile(List<?> content, String path, boolean overwrite) throws FileException {
-		if (!fileHandler.isFileExists(path) || overwrite) {
+	public boolean writeFile(List<?> content, String path, boolean append) throws FileException {
+		if (!fileHandler.isFileExists(path) || !append) {
 			FileWriter writer = null;
 			PrintWriter printWriter = null;
 			fileHandler.delete(path);
@@ -40,7 +38,7 @@ public class TextFileWriterImpl implements FilesWriter {
 			}
 			return true;
 
-		} else if (!overwrite) {
+		} else if (append) {
 			FileWriter writer = null;
 			PrintWriter printWriter = null;
 			try {
@@ -65,37 +63,8 @@ public class TextFileWriterImpl implements FilesWriter {
 
 	@Override
 	public boolean copyFile(String path1, String path2) throws FileException {
-		if (fileHandler.isFileExists(path1) && fileHandler.isFileExists(path2)) {
-			FileWriter writer = null;
-			PrintWriter printWriter = null;
-			FileReader fileReader = null;
-			BufferedReader bufferedReader = null;
-			try {
-				writer = new FileWriter(path1);
-				printWriter = new PrintWriter(writer);
-				fileReader = new FileReader(path2);
-				bufferedReader = new BufferedReader(fileReader);
-				String line = bufferedReader.readLine();
-				while (line != null) {
-					printWriter.println(line);
-					line = bufferedReader.readLine();
-				}
-				printWriter.flush();
+		
+		return false;
 
-			} catch (IOException e) {
-				throw new FileException("Failed to write in the file - " + path2, e);
-			} finally {
-				printWriter.close();
-				try {
-					bufferedReader.close();
-					fileReader.close();
-				} catch (IOException e) {
-					throw new FileException("Failed to read file - " + path1, e);
-				}
-			}
-			return true;
-		} else
-			throw new FileException("Cannot overwrite in the file ", new RuntimeException());
 	}
-
 }

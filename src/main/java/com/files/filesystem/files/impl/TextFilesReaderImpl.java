@@ -23,7 +23,7 @@ public class TextFilesReaderImpl implements FilesReader {
 			    reader = new FileReader(fileName);
 				bufferedReader = new BufferedReader(reader);
 				String line = bufferedReader.readLine();
-				while (line != bufferedReader.readLine()) {
+				while (line != null) {
 					list.add(line);
 					line = bufferedReader.readLine();
 				}

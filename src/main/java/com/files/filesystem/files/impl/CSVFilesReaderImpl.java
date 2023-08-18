@@ -28,7 +28,7 @@ public class CSVFilesReaderImpl implements FilesReader {
 				reader = new FileReader(fileName);
 				bufferedReader = new BufferedReader(reader);
 
-				if ((line = bufferedReader.readLine()) != null) {
+				if ((line = bufferedReader.readLine())!= null) {
 					String[] headers = line.split(CSV_SEPERATOR);
 					while ((line = bufferedReader.readLine()) != null) {
 						String[] data = line.split(CSV_SEPERATOR);

@@ -15,34 +15,20 @@ import com.files.filesystem.directories.impl.FileHandlerImpl;
 import com.files.filesystem.exceptions.FileException;
 import com.files.filesystem.files.FilesWriter;
 
-public class JSONFIlesWriterImpl implements FilesWriter {
+public class JSONFilesWriterImpl implements FilesWriter {
 	FileHandler filesHandler = new FileHandlerImpl();
 
 	@Override
-	public boolean writeFile(List<?> content, String path, boolean overwrite) throws FileException {
-		if (!filesHandler.isFileExists(path) || overwrite) {
-			JSONArray dataArray = putDataToJSONarray(content);
-			FileWriter fileWriter = null;
-			PrintWriter printWriter = null;
+	public boolean writeFile(List<?> data, String path, boolean append) throws FileException {
+		if (!filesHandler.isFileExists(path) || !append) {
 			filesHandler.delete(path);
 			filesHandler.createIfNotExist(path);
-			try {
-				fileWriter = new FileWriter(path);
-				printWriter = new PrintWriter(fileWriter);
-				printWriter.write(dataArray.toJSONString());
-				printWriter.flush();
-			} catch (IOException e) {
-				throw new FileException("Failed to write in the file -" + path, e);
-			} finally {
-				printWriter.close();
 			}
-			return true;
-		} else if (!overwrite) {
-			JSONArray dataArray = putDataToJSONarray(content);
+			JSONArray dataArray = putDataToJSONarray(data);
 			FileWriter fileWriter = null;
 			PrintWriter printWriter = null;
 			try {
-				fileWriter = new FileWriter(path, true);
+				fileWriter = new FileWriter(path, append);
 				printWriter = new PrintWriter(fileWriter);
 				printWriter.write(dataArray.toJSONString());
 				printWriter.flush();
@@ -52,9 +38,7 @@ public class JSONFIlesWriterImpl implements FilesWriter {
 				printWriter.close();
 			}
 			return true;
-		} else
-			throw new FileException("Cannot overwite the file- " + path, new RuntimeException());
-	}
+		}
 
 	@Override
 	public boolean copyFile(String path1, String path2) throws FileException {

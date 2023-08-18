@@ -18,63 +18,26 @@ public class CSVFilesWriterImpl implements FilesWriter {
 	// Re-factored the code.
 	@Override
 	public boolean writeFile(List<?> content, String path, boolean append) throws FileException {
-		
+
 		FileWriter writer = null;
-		PrintWriter printWriter = null; 
-		
-		if (!fileHandler.isFileExists(path)) {
-			fileHandler.createIfNotExist(path);
-		}
-		
-		
-		
-		
-		if (!fileHandler.isFileExists(path)|| append) {
-			
-		} else {
-			
-		}
-		
-		/*if (!fileHandler.isFileExists(path)|| append) {
-			FileWriter writer = null;
-			PrintWriter printWriter = null;
+		PrintWriter printWriter = null;
+
+		if (!fileHandler.isFileExists(path) || !append) {
 			fileHandler.delete(path);
 			fileHandler.createIfNotExist(path);
-			try {
-				writer = new FileWriter(path, false);
-				printWriter = new PrintWriter(writer);
-				if (!content.isEmpty()) {
-					writeData(content, printWriter);
-				}
-				return true;
-			} catch (IOException e) {
-				throw new FileException("Failed to write in the file -" + path, e);
-			} finally {
-				printWriter.close();
-			}
-			
-		} else if (!append) {
-			FileWriter writer = null;
-			PrintWriter printWriter = null;
-			try {
-				writer = new FileWriter(path,true);
-				printWriter = new PrintWriter(writer);
-				if (!content.isEmpty()) {
-					 writeData(content, printWriter);
-				}
-			} catch (IOException e) {
-				throw new FileException("Failed to write in the file -" + path, e);
-			} finally {
-				printWriter.close();
+		}
+		try {
+			writer = new FileWriter(path, append);
+			printWriter = new PrintWriter(writer);
+			if (!content.isEmpty()) {
+				writeData(content, printWriter);
 			}
 			return true;
-
+		} catch (IOException e) {
+			throw new FileException("Failed to write in the file -" + path, e);
+		} finally {
+			printWriter.close();
 		}
-		else throw new FileException("Cannot overwite the file- " + path, new RuntimeException()) ;
-		
-		*/
-		
-		return false;
 	}
 
 	@Override
@@ -82,17 +45,17 @@ public class CSVFilesWriterImpl implements FilesWriter {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 	private void writeData(List<?> content, PrintWriter printWriter) {
-		Map<?,?> data = (Map<?, ?>) content.get(0);
+		Map<?, ?> data = (Map<?, ?>) content.get(0);
 		Set<?> keys = data.keySet();
 		for (Object header : keys) {
 			printWriter.print(header);
-			printWriter.print(",");	
+			printWriter.print(",");
 		}
 		printWriter.println();
 		for (int j = 0; j < content.size(); j++) {
-			Map<?,?> values = (Map<?,?>) content.get(j);
+			Map<?, ?> values = (Map<?, ?>) content.get(j);
 			for (Object entity : values.values()) {
 				printWriter.print(entity);
 				printWriter.print(",");
