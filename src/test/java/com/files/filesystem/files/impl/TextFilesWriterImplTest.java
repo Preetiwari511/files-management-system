@@ -8,33 +8,40 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.files.filesystem.enums.FileType;
 import com.files.filesystem.exceptions.FileException;
+import com.files.filesystem.files.FilesReader;
+import com.files.filesystem.files.FilesReaderFactory;
 import com.files.filesystem.files.FilesWriter;
+import com.files.filesystem.utils.FilesUtil;
 
-public class TextFileWriterImplTest {
-	private final static String ROOT = "src/test/resources";
-	private final static String FILE_PATH = "data/sample_text_file_write5.txt";
+public class TextFilesWriterImplTest {
+	private final static String ROOT = "C:\\Users\\preeti.tiwari\\Documents\\Files";
+	private final static String FILE_PATH = "sample_text_file_write5.txt";
 	private final static String SAMPLE_FILE = ROOT + File.separator + FILE_PATH;
 	private final static List<String> list = data();
 
 	
 	@Test
 	public void testWriteFileWhenFileNotExist() throws FileException {
-		FilesWriter fileWriter = new TextFileWriterImpl();
+		FileType fileType =FilesUtil.getFileType(SAMPLE_FILE);
+		FilesWriter fileWriter = FilesReaderFactory.getFilesWriter(fileType);
 		boolean result = fileWriter.writeFile(list, SAMPLE_FILE, false);
 		assertTrue(result);
 	}
 	
 	@Test
 	public void testWriteFileWithoutAppend() throws FileException {
-		FilesWriter fileWriter = new TextFileWriterImpl();
+		FileType fileType =FilesUtil.getFileType(SAMPLE_FILE);
+		FilesWriter fileWriter = FilesReaderFactory.getFilesWriter(fileType);
 		boolean result = fileWriter.writeFile(list, SAMPLE_FILE, false);
 		assertTrue(result);
 	}
 	
 	@Test
 	public void testWriteFileWithAppend() throws FileException {
-		FilesWriter fileWriter = new TextFileWriterImpl();
+		FileType fileType =FilesUtil.getFileType(SAMPLE_FILE);
+		FilesWriter fileWriter = FilesReaderFactory.getFilesWriter(fileType);
 		boolean result = fileWriter.writeFile(list, SAMPLE_FILE, true);
 		assertTrue(result);
 	}

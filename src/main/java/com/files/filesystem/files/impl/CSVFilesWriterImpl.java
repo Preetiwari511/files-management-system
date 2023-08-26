@@ -15,7 +15,6 @@ import com.files.filesystem.files.FilesWriter;
 public class CSVFilesWriterImpl implements FilesWriter {
 	FileHandler fileHandler = new FileHandlerImpl();
 
-	// Re-factored the code.
 	@Override
 	public boolean writeFile(List<?> content, String path, boolean append) throws FileException {
 
@@ -45,18 +44,20 @@ public class CSVFilesWriterImpl implements FilesWriter {
 	private void writeData(List<?> content, PrintWriter printWriter) {
 		Map<?, ?> data = (Map<?, ?>) content.get(0);
 		Set<?> keys = data.keySet();
+		StringBuffer sb = new StringBuffer();
 		for (Object header : keys) {
-			printWriter.print(header);
-			printWriter.print(",");
+			sb.append(header + ",");
 		}
-		printWriter.println();
+		sb.replace(sb.length()-1, sb.length()-1, "");
+		printWriter.println(sb);
 		for (int j = 0; j < content.size(); j++) {
+			sb = new StringBuffer();
 			Map<?, ?> values = (Map<?, ?>) content.get(j);
 			for (Object entity : values.values()) {
-				printWriter.print(entity);
-				printWriter.print(",");
+				sb.append(entity + ",");
 			}
-			printWriter.println();
+			sb.replace(sb.length()-1, sb.length()-1, "");
+			printWriter.println(sb);
 		}
 
 		printWriter.flush();

@@ -2,6 +2,7 @@ package com.files.filesystem.directories.impl;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.files.filesystem.directories.DirectoryHandler;
@@ -37,8 +38,7 @@ public class DirectoryHandlerImpl implements DirectoryHandler {
 			List<String> list = new ArrayList<>();
 			String[] allFiles = file.list();
 			for (String name : allFiles) {
-//				OS based code
-				if (isDirectoryExists(dirName + "//" + name)) {
+				if (isDirectoryExists(dirName + File.separator + name)) {
 					list.add(name);
 				}
 			}
@@ -52,11 +52,7 @@ public class DirectoryHandlerImpl implements DirectoryHandler {
 		if (isDirectoryExists(dirName)) {
 			File file = new File(dirName);
 			String[] stringStore = file.list();
-			List<String> list = new ArrayList<>();
-//			Arrays.asList(stringStore);
-			for (String str : stringStore) {
-				list.add(str);
-			}
+			List<String> list = Arrays.asList(stringStore);
 			return list;
 		} else
 			throw new FileException("Directory doesn't exists", new RuntimeException());

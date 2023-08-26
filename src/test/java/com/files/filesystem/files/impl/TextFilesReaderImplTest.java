@@ -5,8 +5,11 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.files.filesystem.enums.FileType;
 import com.files.filesystem.exceptions.FileException;
 import com.files.filesystem.files.FilesReader;
+import com.files.filesystem.files.FilesReaderFactory;
+import com.files.filesystem.utils.FilesUtil;
 
 public class TextFilesReaderImplTest {
 	private final static String ROOT = "src/test/resources";
@@ -15,8 +18,9 @@ public class TextFilesReaderImplTest {
 
 	@Test
 	public void testReadFile() throws FileException {
-		FilesReader filesReader = new TextFilesReaderImpl();
-		List<?> list = filesReader.readFile(SAMPLE_DATA);
+		FileType fileType = FilesUtil.getFileType(SAMPLE_DATA);
+		FilesReader fileReader = FilesReaderFactory.getFilesReader(fileType);
+		List<?> list = fileReader.readFile(SAMPLE_DATA);
 		for (Object obj : list) {
 			System.out.println(obj);
 		}

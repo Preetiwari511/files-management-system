@@ -14,17 +14,18 @@ import com.files.filesystem.directories.impl.FileHandlerImpl;
 import com.files.filesystem.exceptions.FileException;
 import com.files.filesystem.files.FilesWriter;
 
-public class TextFileWriterImpl implements FilesWriter {
+public class TextFilesWriterImpl implements FilesWriter {
 	FileHandler fileHandler = new FileHandlerImpl();
+
 	@Override
 	public boolean writeFile(List<?> content, String path, boolean append) throws FileException {
+		FileWriter writer = null;
+		PrintWriter printWriter = null;
 		if (!fileHandler.isFileExists(path) || !append) {
-			FileWriter writer = null;
-			PrintWriter printWriter = null;
 			fileHandler.delete(path);
 			fileHandler.createIfNotExist(path);
 			try {
-				writer = new FileWriter(path);
+				writer = new FileWriter(path, append);
 				printWriter = new PrintWriter(writer);
 				if (!content.isEmpty()) {
 					for (Object str : content) {
@@ -38,30 +39,8 @@ public class TextFileWriterImpl implements FilesWriter {
 			} finally {
 				printWriter.close();
 			}
-			return true;
-
-		} else if (append) {
-			FileWriter writer = null;
-			PrintWriter printWriter = null;
-			try {
-				writer = new FileWriter(path, true);
-				printWriter = new PrintWriter(writer);
-				if (!content.isEmpty()) {
-					for (Object str : content) {
-						printWriter.println(str);
-					}
-					printWriter.flush();
-				}
-			} catch (IOException e) {
-				throw new FileException("Failed to write in the file -" + path, e);
-			} finally {
-				printWriter.close();
-			}
-			return true;
-
-		} else
-			throw new FileException("Cannot overwrite in the file -" + path, new RuntimeException());
+		}
+		return true;
 	}
-
 
 }

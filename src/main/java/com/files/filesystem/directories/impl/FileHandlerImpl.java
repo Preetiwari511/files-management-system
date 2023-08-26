@@ -36,8 +36,12 @@ public class FileHandlerImpl implements FileHandler {
 
 	@Override
 	public boolean delete(String fileName) {
+		if(isFileExists(fileName)) {
 		File file = new File(fileName);	
-		return file.delete();
+		 boolean result = file.delete();
+		 return result;
+		}
+		return false;
 	}
 
 	@Override
@@ -48,10 +52,7 @@ public class FileHandlerImpl implements FileHandler {
 			List<String> fileList = new ArrayList<>(0);
 			
 			for(String name : nameList) {
-//				File.separator
-//				if(isFileExists(dirName+File.separator+name)) {
-				// OS based code
-				if(isFileExists(dirName+"\\"+name)) {
+				if(isFileExists(dirName+File.separator+name)) {
 					fileList.add(name);
 				}
 			}
@@ -71,10 +72,8 @@ public class FileHandlerImpl implements FileHandler {
 	        Files.copy(sourceFile, desFile);
 	        return true ; 
 	    } catch (IOException e) {
-	        e.printStackTrace();
+	    	throw new FileException("error occurred to copy a file ", e  );
 	    }
-		return false;
-
 	}
 
 }

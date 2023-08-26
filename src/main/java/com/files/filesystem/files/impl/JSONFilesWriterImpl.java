@@ -10,6 +10,8 @@ import java.util.Map.Entry;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.files.filesystem.directories.FileHandler;
 import com.files.filesystem.directories.impl.FileHandlerImpl;
 import com.files.filesystem.exceptions.FileException;
@@ -20,25 +22,32 @@ public class JSONFilesWriterImpl implements FilesWriter {
 
 	@Override
 	public boolean writeFile(List<?> data, String path, boolean append) throws FileException {
-		if (!filesHandler.isFileExists(path) || !append) {
+		if (!filesHandler.isFileExists(path)) {
 			filesHandler.delete(path);
 			filesHandler.createIfNotExist(path);
-			}
 			JSONArray dataArray = putDataToJSONarray(data);
+			
 			FileWriter fileWriter = null;
 			PrintWriter printWriter = null;
 			try {
-				fileWriter = new FileWriter(path, append);
+				fileWriter = new FileWriter(path);
 				printWriter = new PrintWriter(fileWriter);
 				printWriter.write(dataArray.toJSONString());
 				printWriter.flush();
+				//String dataAsJSONString = new ObjectMapper().writeValueAsString(data);
+				// printWriter.write(dataAsJSONString);
+				
+				
 			} catch (IOException e) {
 				throw new FileException("Failed to write in the file -" + path, e);
 			} finally {
 				printWriter.close();
 			}
 			return true;
+		
 		}
+		return false;
+}
 
 
 
@@ -55,6 +64,8 @@ public class JSONFilesWriterImpl implements FilesWriter {
 			dataList.add(jsonObject);
 		}
 		return dataList;
+		
+		
 	}
-
+   
 }

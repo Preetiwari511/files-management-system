@@ -1,5 +1,6 @@
 package com.files.filesystem.files.impl;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -10,34 +11,40 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import com.files.filesystem.enums.FileType;
 import com.files.filesystem.exceptions.FileException;
+import com.files.filesystem.files.FilesReaderFactory;
 import com.files.filesystem.files.FilesWriter;
+import com.files.filesystem.utils.FilesUtil;
 
 public class JSONFilesWriterImplTest {
-	private final static String ROOT = "src/test/resources";
-	private final static String FILE_PATH = "data/sample_json_file.json";
+	private final static String ROOT = "C:\\Users\\preeti.tiwari\\Documents\\Files";
+	private final static String FILE_PATH = "sample_json_file.json";
 	private final static String SAMPLE_FILE = ROOT + File.separator + FILE_PATH;
 	private final static List<Map<String,String>> list = data();
 	
 	@Test
 	public void testWriteFileWhenFileNotExist() throws FileException {
-		FilesWriter fileWriter = new JSONFilesWriterImpl();
+		FileType fileType =FilesUtil.getFileType(SAMPLE_FILE);
+		FilesWriter fileWriter = FilesReaderFactory.getFilesWriter(fileType);
 		boolean result = fileWriter.writeFile(list, SAMPLE_FILE, false);
 		assertTrue(result);
 	}
 
 	@Test
 	public void testWriteFileWithoutAppend() throws FileException {
-		FilesWriter fileWriter = new JSONFilesWriterImpl();
+		FileType fileType =FilesUtil.getFileType(SAMPLE_FILE);
+		FilesWriter fileWriter = FilesReaderFactory.getFilesWriter(fileType);
 		boolean result = fileWriter.writeFile(list, SAMPLE_FILE, false);
 		assertTrue(result);
 	}
 
 	@Test
 	public void testWriteFileWithAppend() throws FileException {
-		FilesWriter fileWriter = new JSONFilesWriterImpl();
+		FileType fileType =FilesUtil.getFileType(SAMPLE_FILE);
+		FilesWriter fileWriter = FilesReaderFactory.getFilesWriter(fileType);
 		boolean result = fileWriter.writeFile(list, SAMPLE_FILE, true);
-		assertTrue(result);
+		assertFalse(result);
 	}
 
 	private static List<Map<String, String>> data() {

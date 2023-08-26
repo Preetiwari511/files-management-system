@@ -30,6 +30,13 @@ public class FilesHandlerImplTest {
 		boolean result = fileHandler.delete(SAMPLE_DATA);
 		assertTrue(result);
 	}
+	
+	@Test
+	public void testDeleteWhenFileIsUnavailable() {
+		FileHandler fileHandler = new FileHandlerImpl();
+		boolean result = fileHandler.delete("src/test/resources"+ File.separator + "data/sample_text_filenew.txt" );
+		assertFalse(result);
+	}
 
 	@Test
 	public void testCreateIfNotExist() {
@@ -46,4 +53,5 @@ public class FilesHandlerImplTest {
 		}
 
 	}
+	
 }
