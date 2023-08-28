@@ -6,6 +6,8 @@ import com.files.filesystem.files.impl.CSVFilesWriterImpl;
 import com.files.filesystem.files.impl.JSONFilesReaderImpl;
 import com.files.filesystem.files.impl.JSONFilesWriterImpl;
 import com.files.filesystem.files.impl.TextFilesWriterImpl;
+import com.files.filesystem.files.impl.XMLFilesReaderImpl;
+import com.files.filesystem.files.impl.XMLFilesWriterImpl;
 import com.files.filesystem.files.impl.TextFilesReaderImpl;
 
 public final class FilesReaderFactory {
@@ -18,6 +20,8 @@ public final class FilesReaderFactory {
 			return new CSVFilesReaderImpl();
 		case JSON:
 			return new JSONFilesReaderImpl();
+		case XML :
+			 return new XMLFilesReaderImpl();
 		}
 		return null;
 	}
@@ -30,6 +34,8 @@ public final class FilesReaderFactory {
 			return new CSVFilesWriterImpl();
 		case JSON:
 			return new JSONFilesWriterImpl();
+		case XML :
+			return new XMLFilesWriterImpl();
 		}
 		return null;
 	}

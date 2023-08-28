@@ -1,79 +1,58 @@
 package com.files.filesystem.files.impl;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.jar.Attributes;
-import java.io.FileWriter;
-import java.io.StringReader;
 
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
 
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
-
+import com.files.filesystem.directories.FileHandler;
+import com.files.filesystem.directories.impl.FileHandlerImpl;
 import com.files.filesystem.exceptions.FileException;
 import com.files.filesystem.files.FilesWriter;
 
 public class XMLFilesWriterImpl implements FilesWriter {
+	FileHandler fileHandler = new FileHandlerImpl();
 
 	@Override
 	public boolean writeFile(List<?> data, String filePath, boolean append) throws FileException {
-		try {
-			SAXParserFactory factory = SAXParserFactory.newInstance();
-			SAXParser parser = factory.newSAXParser();
-			CustomHandler handler = new CustomHandler((List<Map<String, String>>) data);
-			parser.parse(new InputSource(new StringReader("")), handler);
-			FileWriter fileWriter = new FileWriter(filePath, append);
-			fileWriter.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-	        fileWriter.write(handler.getResult());
-	        fileWriter.close();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (!fileHandler.isFileExists(filePath)) {
+			fileHandler.delete(filePath);
+			fileHandler.createIfNotExist(filePath);
 		}
-		return true;
+		try (FileOutputStream out = new FileOutputStream(filePath)) {
+			writeXml(out, data);
+			return true;
+		} catch (IOException e) {
+			throw new FileException("Failed to write in the file -" + filePath, e);
+		} catch (XMLStreamException e) {
+			throw new FileException("Failed to write XML content to the file - " + filePath, e);
+		}
 	}
-	class CustomHandler extends DefaultHandler {
-		private StringBuilder xmlResult = new StringBuilder();
-		private List<Map<String, String>> data;
-		private int indentLevel = 0;
 
-		public CustomHandler(List<Map<String, String>> data) {
-			this.data = data;
-		}
-
-		public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-			addIndent();
-			xmlResult.append("<").append(qName);
-			if (data != null && !data.isEmpty()) {
-				Map<String, String> attributesMap = data.get(0);
-				for (Map.Entry<String, String> entry : attributesMap.entrySet()) {
-					xmlResult.append(" ").append(entry.getKey()).append("=\"").append(entry.getValue()).append("\"");
-				}
+	private void writeXml(FileOutputStream out, List<?> data) throws XMLStreamException {
+		XMLOutputFactory output = XMLOutputFactory.newInstance();
+		XMLStreamWriter writer = output.createXMLStreamWriter(out);
+		writer.writeStartDocument("utf-8", "1.0");
+		writer.writeStartElement("Dataset");
+		for (int i = 0; i < data.size(); i++) {
+			writer.writeStartElement("record");
+			;
+			Map<String, String> mapData = (Map<String, String>) data.get(i);
+			for (String key : mapData.keySet()) {
+				String value = mapData.get(key);
+				writer.writeStartElement(key);
+				writer.writeCharacters(value);
+				writer.writeEndElement();
 			}
-			xmlResult.append(">").append("\n");
-			indentLevel++;
+			writer.writeEndElement();
 		}
-
-		public void endElement(String uri, String localName, String qName) throws SAXException {
-			indentLevel--;
-			addIndent();
-			xmlResult.append("</").append(qName).append(">").append("\n");
-		}
-
-		private void addIndent() {
-			for (int i = 0; i < indentLevel; i++) {
-				xmlResult.append(" ");
-			}
-		}
-
-		public String getResult() {
-			return xmlResult.toString();
-		}
-
+		writer.writeEndElement();
+		writer.writeEndDocument();
+		writer.flush();
+		writer.close();
 	}
 }
-
-

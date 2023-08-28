@@ -26,11 +26,11 @@ public class XMLFilesReaderImpl implements FilesReader {
 			saxParser.parse(fileName, customHandler);
 
 		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
+			throw new FileException("Failed to write in the file -" + fileName, e);
 		} catch (SAXException e) {
-			e.printStackTrace();
+			throw new FileException("Failed to write in the file -" + fileName, e);
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new FileException("Failed to write in the file -" + fileName, e);
 		}
 
 		return resultList;

@@ -12,6 +12,8 @@ public class FilesUtil {
 			return FileType.CSV;
 		case "json" :
 			return FileType.JSON;
+		case "xml" 	:
+			return FileType.XML;
 		}
 		return null;
 	}
