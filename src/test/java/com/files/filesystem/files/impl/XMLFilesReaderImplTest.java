@@ -16,12 +16,15 @@ public class XMLFilesReaderImplTest {
 
 	@org.junit.Test
 	public void test() {
-		List<Map<String, String>> dataList = createSampleData();
+		
 
 		XMLFilesReaderImpl xmlReader = new XMLFilesReaderImpl();
 		try {
-			xmlReader.readFile(SAMPLE_DATA);
+			List<Map<String, String>> dataList = (List<Map<String, String>>) xmlReader.readFile(SAMPLE_DATA);
 			System.out.println("XML file read successfully!");
+			for (Map<String, String> map : dataList) {
+				System.out.println(map.entrySet());
+			}
 		} catch (FileException e) {
 			e.printStackTrace();
 		}
