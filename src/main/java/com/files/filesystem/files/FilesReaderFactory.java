@@ -6,6 +6,8 @@ import com.files.filesystem.files.impl.CSVFilesWriterImpl;
 import com.files.filesystem.files.impl.JSONFilesReaderImpl;
 import com.files.filesystem.files.impl.JSONFilesWriterImpl;
 import com.files.filesystem.files.impl.TextFilesWriterImpl;
+import com.files.filesystem.files.impl.XLSXFilesReaderImpl;
+import com.files.filesystem.files.impl.XLSXFilesWriterImpl;
 import com.files.filesystem.files.impl.XMLFilesReaderImpl;
 import com.files.filesystem.files.impl.XMLFilesWriterImpl;
 import com.files.filesystem.files.impl.TextFilesReaderImpl;
@@ -22,6 +24,8 @@ public final class FilesReaderFactory {
 			return new JSONFilesReaderImpl();
 		case XML :
 			 return new XMLFilesReaderImpl();
+		case XLSX :
+			 return new XLSXFilesReaderImpl();
 		}
 		return null;
 	}
@@ -36,6 +40,8 @@ public final class FilesReaderFactory {
 			return new JSONFilesWriterImpl();
 		case XML :
 			return new XMLFilesWriterImpl();
+		case XLSX:
+			return new XLSXFilesWriterImpl("Employees");
 		}
 		return null;
 	}

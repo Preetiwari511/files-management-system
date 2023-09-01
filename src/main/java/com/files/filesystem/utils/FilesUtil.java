@@ -14,6 +14,8 @@ public class FilesUtil {
 			return FileType.JSON;
 		case "xml" 	:
 			return FileType.XML;
+		case "xlsx"	:
+			return FileType.XLSX;
 		}
 		return null;
 	}

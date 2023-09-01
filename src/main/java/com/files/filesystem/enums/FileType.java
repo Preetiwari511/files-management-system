@@ -1,7 +1,7 @@
 package com.files.filesystem.enums;
 
 public enum FileType {
-	TEXT("txt"), CSV("csv"),JSON("json"), XML("xml");
+	TEXT("txt"), CSV("csv"),JSON("json"), XML("xml"), XLSX("xlsx");
 	
 	private String fileType;
 
