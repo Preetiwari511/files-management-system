@@ -21,13 +21,11 @@ public class XLSXFilesReaderImplTest {
 	public void testReadFile() throws FileException {
 		FileType fileType = FilesUtil.getFileType(SAMPLE_DATA);
 		FilesReader fileReader = FilesReaderFactory.getFilesReader(fileType);
-		List<Map<String,?>> list = (List<Map<String, ?>>) fileReader.readFile(SAMPLE_DATA);
+		List<List<Map<String,?>>> list = (List<List<Map<String, ?>>>) fileReader.readFile(SAMPLE_DATA);
 		Iterator itr = list.iterator();
 		while(itr.hasNext()) {
-			Map<String,?> data = (Map<String, ?>) itr.next();
-			for(String key : data.keySet()) {
-				System.out.print(key + " : "+ data.get(key));
-			}
+			List<Map<String,?>> data = (List<Map<String, ?>>) itr.next();
+			System.out.println(data);
 			System.out.println();
 		}
 	}

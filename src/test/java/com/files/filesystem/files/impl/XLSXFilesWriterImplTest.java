@@ -26,15 +26,15 @@ public class XLSXFilesWriterImplTest {
 //	private final static String FILE_PATH2 = "data/MOCK_DATA.xlsx";
 //	private final static String SAMPLE_DATA = ROOTPATH + File.separator + FILE_PATH2;
 
-//	@Test
-//	public void testWriteFileWhenFileNotExist() throws FileException {
-//		FileType fileType =FilesUtil.getFileType(SAMPLE_FILE);
-//		FilesWriter fileWriter = FilesReaderFactory.getFilesWriter(fileType);
-//		FilesReader reader = new XLSXFilesReaderImpl();
-//		//List<Map<String,Object>> list= (List<Map<String, Object>>) reader.readFile(SAMPLE_DATA);
-//		boolean result = fileWriter.writeFile(data(), SAMPLE_FILE, false);
-//		assertTrue(result);
-//	}
+	@Test
+	public void testWriteFileWhenFileNotExist() throws FileException {
+		FileType fileType =FilesUtil.getFileType(SAMPLE_FILE);
+		FilesWriter fileWriter = FilesReaderFactory.getFilesWriter(fileType);
+		FilesReader reader = new XLSXFilesReaderImpl();
+		//List<Map<String,Object>> list= (List<Map<String, Object>>) reader.readFile(SAMPLE_DATA);
+		boolean result = fileWriter.writeFile(data(), SAMPLE_FILE, false);
+		assertTrue(result);
+	}
 //
 //	@Test
 //	public void testWriteFileWithoutAppend() throws FileException {
@@ -45,15 +45,15 @@ public class XLSXFilesWriterImplTest {
 //		assertTrue(result);
 //	}
 //
-	@Test
-	public void testWriteFileWithAppend() throws FileException {
-		FileType fileType =FilesUtil.getFileType(SAMPLE_FILE);
-		FilesWriter fileWriter = FilesReaderFactory.getFilesWriter(fileType);
-		FilesReader reader = new XLSXFilesReaderImpl();
-		//List<Map<String,Object>> list= (List<Map<String, Object>>) reader.readFile(SAMPLE_DATA);
-		boolean result = fileWriter.writeFile(data(), SAMPLE_FILE, true);
-		assertTrue(result);
-	}
+//	@Test
+//	public void testWriteFileWithAppend() throws FileException {
+//		FileType fileType =FilesUtil.getFileType(SAMPLE_FILE);
+//		FilesWriter fileWriter = FilesReaderFactory.getFilesWriter(fileType);
+//		FilesReader reader = new XLSXFilesReaderImpl();
+//		//List<Map<String,Object>> list= (List<Map<String, Object>>) reader.readFile(SAMPLE_DATA);
+//		boolean result = fileWriter.writeFile(data(), SAMPLE_FILE, true);
+//		assertTrue(result);
+//	}
 	
 	private static List<Map<String, String>> data() {
 		List<Map<String, String>> list = new ArrayList<Map<String, String>>();

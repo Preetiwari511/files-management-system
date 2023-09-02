@@ -3,6 +3,7 @@ package com.files.filesystem.files.impl;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -26,16 +27,17 @@ public class XLSXFilesReaderImpl implements FilesReader {
 	public List<?> readFile(String fileName) throws FileException {
 		if (fileHandler.isFileExists(fileName)) {
 			FileInputStream fileInputStream = null;
-			List<Map<?, ?>> list = new LinkedList<>();
+			List<List<Map<?,?>>> list = new LinkedList<>();
 			try {
 				fileInputStream = new FileInputStream(fileName);
 				XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
 				XSSFSheet sheet = null;
 				Iterator rows = null;
+				List<String> headers =null;
 				for (int i = 0; i < workbook.getNumberOfSheets(); i++) {
 					sheet = workbook.getSheetAt(i);
 					rows = sheet.iterator();
-					List<String> headers = new LinkedList<>();
+					headers = new LinkedList<>();
 					while (rows.hasNext()) {
 						XSSFRow row = (XSSFRow) rows.next();
 						if (row.getRowNum() == 0) {
@@ -43,6 +45,7 @@ public class XLSXFilesReaderImpl implements FilesReader {
 							continue;
 						}
 						Iterator columns = row.iterator();
+						List<Map<?,?>> rowData = new LinkedList();
 						while (columns.hasNext()) {
 							XSSFCell column = (XSSFCell) columns.next();
 							switch (column.getCellType()) {
@@ -50,7 +53,7 @@ public class XLSXFilesReaderImpl implements FilesReader {
 								String string = column.getStringCellValue();
 								Map<String, String> map = new LinkedHashMap<>();
 								map.put(headers.get(column.getColumnIndex()), string);
-								list.add(map);
+								rowData.add(map);
 
 							}
 								break;
@@ -58,17 +61,18 @@ public class XLSXFilesReaderImpl implements FilesReader {
 								double num = column.getNumericCellValue();
 								Map<String, Integer> map = new LinkedHashMap<>();
 								map.put(headers.get(column.getColumnIndex()), (int) num);
-								list.add(map);
+								rowData.add(map);
 							}
 								break;
 							case BOOLEAN: {
 								boolean value = column.getBooleanCellValue();
 								Map<String, Boolean> map = new LinkedHashMap<>();
 								map.put(headers.get(column.getColumnIndex()), value);
-								list.add(map);
+								rowData.add(map);
 							}
 								break;
 							}
+							list.add(rowData);
 						}
 
 					}
