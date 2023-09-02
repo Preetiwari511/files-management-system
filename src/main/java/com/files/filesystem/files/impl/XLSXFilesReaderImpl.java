@@ -27,7 +27,7 @@ public class XLSXFilesReaderImpl implements FilesReader {
 	public List<?> readFile(String fileName) throws FileException {
 		if (fileHandler.isFileExists(fileName)) {
 			FileInputStream fileInputStream = null;
-			List<List<Map<?,?>>> list = new LinkedList<>();
+			List<List<Map<?,?>>> workbookData = new LinkedList<>();
 			try {
 				fileInputStream = new FileInputStream(fileName);
 				XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
@@ -38,6 +38,7 @@ public class XLSXFilesReaderImpl implements FilesReader {
 					sheet = workbook.getSheetAt(i);
 					rows = sheet.iterator();
 					headers = new LinkedList<>();
+					List<Map<?,?>> sheetData = new LinkedList<Map<?,?>>();
 					while (rows.hasNext()) {
 						XSSFRow row = (XSSFRow) rows.next();
 						if (row.getRowNum() == 0) {
@@ -45,37 +46,33 @@ public class XLSXFilesReaderImpl implements FilesReader {
 							continue;
 						}
 						Iterator columns = row.iterator();
-						List<Map<?,?>> rowData = new LinkedList();
+						Map<String, Object> map = new LinkedHashMap<>();
 						while (columns.hasNext()) {
 							XSSFCell column = (XSSFCell) columns.next();
 							switch (column.getCellType()) {
 							case STRING: {
 								String string = column.getStringCellValue();
-								Map<String, String> map = new LinkedHashMap<>();
+								
 								map.put(headers.get(column.getColumnIndex()), string);
-								rowData.add(map);
 
 							}
 								break;
 							case NUMERIC: {
 								double num = column.getNumericCellValue();
-								Map<String, Integer> map = new LinkedHashMap<>();
 								map.put(headers.get(column.getColumnIndex()), (int) num);
-								rowData.add(map);
 							}
 								break;
 							case BOOLEAN: {
 								boolean value = column.getBooleanCellValue();
-								Map<String, Boolean> map = new LinkedHashMap<>();
 								map.put(headers.get(column.getColumnIndex()), value);
-								rowData.add(map);
 							}
 								break;
 							}
-							list.add(rowData);
+							
 						}
-
+						sheetData.add(map);
 					}
+					workbookData.add(sheetData);
 				}
 
 			} catch (FileNotFoundException e) {
@@ -89,7 +86,7 @@ public class XLSXFilesReaderImpl implements FilesReader {
 					throw new FileException("Failed to read file - " + fileName, e);
 				} 
 			}
-			return list;
+			return workbookData;
 		} else
 			throw new FileException("File not found", new RuntimeException());
 

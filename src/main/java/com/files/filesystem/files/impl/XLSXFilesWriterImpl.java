@@ -24,7 +24,7 @@ import com.files.filesystem.files.FilesWriter;
 
 public class XLSXFilesWriterImpl implements FilesWriter {
 	private FileHandler fileHandler = new FileHandlerImpl();
-	private String sheetName = "sheet1";
+	private String sheetName = "sheet";
 
 	public XLSXFilesWriterImpl(String sheetName) {
 		this.sheetName = sheetName;
@@ -38,10 +38,15 @@ public class XLSXFilesWriterImpl implements FilesWriter {
 			fileHandler.createIfNotExist(filePath);
 			
 		}
+		int sheetCount = 1;
 		XSSFWorkbook workbook =new XSSFWorkbook();
-		XSSFSheet sheet = workbook.createSheet(sheetName);
-		writeHeader(data, sheet, workbook);
-		writeValuesinCells(data, sheet);
+		for(Object sheetData : data) {
+			sheetData = (List<?>) sheetData;
+			XSSFSheet sheet = workbook.createSheet(sheetName + sheetCount++);
+			writeHeader(data, sheet, workbook);
+			writeValuesinCells(data, sheet);
+		}
+		
 		
 		try {
 			fileOutputStream = new FileOutputStream(filePath);
@@ -84,20 +89,24 @@ public class XLSXFilesWriterImpl implements FilesWriter {
 	private static void writeValuesinCells(List<?> data, XSSFSheet sheet) {
 		Map<String, ?> map = null;
 		Row row = null;
-		for (int i = 1; i <= data.size(); i++) {
+		for (int i = 0; i < data.size(); i++) {
 			row = sheet.createRow(i);
 			System.out.println(row.getRowNum());
-			map = (Map<String, ?>) data.get(i - 1);
+			map = (Map<String, ?>) data.get(i);
 			int colmNo = 0;
 			for (String key : map.keySet()) {
 				XSSFCell cell = (XSSFCell) row.createCell(colmNo);
 				Object value = map.get(key);
-				if (value instanceof String)
+				if (value == null)
+					cell.setCellValue("");
+				else if (value instanceof String)
 					cell.setCellValue((String) value);
-				if (value instanceof Integer)
+				else if (value instanceof Integer)
 					cell.setCellValue((Integer) value);
-				if (value instanceof Boolean)
+				else if (value instanceof Boolean)
 					cell.setCellValue((Boolean) value);
+				else 
+					cell.setCellValue(String.valueOf(value));
 				colmNo = colmNo + 1;
 			}
 		}

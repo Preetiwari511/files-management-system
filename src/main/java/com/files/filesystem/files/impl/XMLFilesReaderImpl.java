@@ -16,12 +16,13 @@ import com.files.filesystem.files.FilesReader;
 
 public class XMLFilesReaderImpl implements FilesReader {
 
+	List<Map<String, String>> resultList = new ArrayList<>();
 	@Override
 	public List<?> readFile(String fileName) throws FileException {
-		List<Map<String, String>> resultList = new ArrayList<>();
+		
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		try {
-			XMLFilesReaderImpl.CustomHandler customHandler = new XMLFilesReaderImpl.CustomHandler(resultList);
+			XMLFilesReaderImpl.CustomHandler customHandler = new XMLFilesReaderImpl.CustomHandler();
 			SAXParser saxParser = factory.newSAXParser();
 			saxParser.parse(fileName, customHandler);
 
@@ -35,22 +36,20 @@ public class XMLFilesReaderImpl implements FilesReader {
 
 		return resultList;
 	}
+	
+	
 
 	public class CustomHandler extends DefaultHandler {
 
 		private StringBuilder currentValue = new StringBuilder();
 		private Map<String, String> currentMap;
-		private List<Map<String, String>> resultMapList;
 
-		private CustomHandler(List<Map<String, String>> resultMapList) {
-			this.resultMapList = resultMapList;
-		}
+		
 
 		@Override
 		public void startElement(String uri, String localName, String qName, Attributes attributes)
 				throws SAXException {
 			currentValue.setLength(0);
-
 			if ("record".equalsIgnoreCase(qName)) {
 				currentMap = new LinkedHashMap<String, String>();
 			}
@@ -62,7 +61,7 @@ public class XMLFilesReaderImpl implements FilesReader {
 			if (currentMap != null) {
 
 				if ("record".equalsIgnoreCase(qName)) {
-					resultMapList.add(currentMap);
+					resultList.add(currentMap);
 					currentMap = null;
 				} else {
 					currentMap.put(qName, currentValue.toString());

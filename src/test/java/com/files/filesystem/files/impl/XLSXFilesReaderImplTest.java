@@ -25,7 +25,9 @@ public class XLSXFilesReaderImplTest {
 		Iterator itr = list.iterator();
 		while(itr.hasNext()) {
 			List<Map<String,?>> data = (List<Map<String, ?>>) itr.next();
-			System.out.println(data);
+			data.forEach(record->{
+				System.out.println(record);
+			});
 			System.out.println();
 		}
 	}

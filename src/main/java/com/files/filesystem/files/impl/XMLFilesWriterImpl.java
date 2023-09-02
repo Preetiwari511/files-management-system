@@ -40,7 +40,6 @@ public class XMLFilesWriterImpl implements FilesWriter {
 		writer.writeStartElement("Dataset");
 		for (int i = 0; i < data.size(); i++) {
 			writer.writeStartElement("record");
-			;
 			Map<String, String> mapData = (Map<String, String>) data.get(i);
 			for (String key : mapData.keySet()) {
 				String value = mapData.get(key);
