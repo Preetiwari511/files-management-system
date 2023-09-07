@@ -12,6 +12,7 @@ import com.files.filesystem.enums.FileType;
 import com.files.filesystem.exceptions.FileException;
 import com.files.filesystem.files.FilesReaderFactory;
 import com.files.filesystem.files.FilesWriter;
+import com.files.filesystem.files.FilesWriterFactory;
 import com.files.filesystem.utils.FilesUtil;
 
 public class CSVFilesWriterImplTest {
@@ -23,7 +24,7 @@ public class CSVFilesWriterImplTest {
 	@Test
 	public void testWriteFileWhenFileNotExist() throws FileException {
 		FileType fileType =FilesUtil.getFileType(SAMPLE_FILE);
-		FilesWriter fileWriter = FilesReaderFactory.getFilesWriter(fileType);
+		FilesWriter fileWriter = FilesWriterFactory.getFilesWriter(fileType);
 		boolean result = fileWriter.writeFile(list, SAMPLE_FILE, false);
 		assertTrue(result);
 	}
@@ -31,7 +32,7 @@ public class CSVFilesWriterImplTest {
 	@Test
 	public void testWriteFileWithoutAppend() throws FileException {
 		FileType fileType =FilesUtil.getFileType(SAMPLE_FILE);
-		FilesWriter fileWriter = FilesReaderFactory.getFilesWriter(fileType);
+		FilesWriter fileWriter = FilesWriterFactory.getFilesWriter(fileType);
 		boolean result = fileWriter.writeFile(list, SAMPLE_FILE, false);
 		assertTrue(result);
 	}
@@ -39,7 +40,7 @@ public class CSVFilesWriterImplTest {
 	@Test
 	public void testWriteFileWithAppend() throws FileException {
 		FileType fileType =FilesUtil.getFileType(SAMPLE_FILE);
-		FilesWriter fileWriter = FilesReaderFactory.getFilesWriter(fileType);
+		FilesWriter fileWriter = FilesWriterFactory.getFilesWriter(fileType);
 		boolean result = fileWriter.writeFile(list, SAMPLE_FILE, true);
 		assertTrue(result);
 	}

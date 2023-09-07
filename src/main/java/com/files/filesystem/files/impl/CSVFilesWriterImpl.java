@@ -53,11 +53,13 @@ public class CSVFilesWriterImpl implements FilesWriter {
 		for (int j = 0; j < content.size(); j++) {
 			sb = new StringBuffer();
 			Map<?, ?> values = (Map<?, ?>) content.get(j);
-			for (Object entity : values.values()) {
-				sb.append(entity + ",");
+			for (Object key: keys) {
+				sb.append(values.get(key)+",");
+				System.out.println(sb.append(values.get(key)+","));
 			}
 			sb.replace(sb.length()-1, sb.length()-1, "");
 			printWriter.println(sb);
+			System.out.println(sb);
 		}
 
 		printWriter.flush();

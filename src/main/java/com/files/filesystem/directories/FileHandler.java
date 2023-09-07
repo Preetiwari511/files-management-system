@@ -15,4 +15,6 @@ public interface FileHandler {
 	public List<String> listFiles(String dirName) throws FileException;
 	
 	public boolean copyFile(String sourcePath, String destinationPath) throws FileException;
+	
+	public boolean zipFile(String sourcePath) throws FileException;
 }

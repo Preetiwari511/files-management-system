@@ -29,21 +29,5 @@ public final class FilesReaderFactory {
 		}
 		return null;
 	}
-	
-	public static FilesWriter getFilesWriter(FileType fileType) {
-		switch (fileType) {
-		case TEXT:
-			return new TextFilesWriterImpl();
-		case CSV:
-			return new CSVFilesWriterImpl();
-		case JSON:
-			return new JSONFilesWriterImpl();
-		case XML :
-			return new XMLFilesWriterImpl();
-		case XLSX:
-			return new XLSXFilesWriterImpl("Employees");
-		}
-		return null;
-	}
 
 }

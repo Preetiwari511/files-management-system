@@ -10,6 +10,7 @@ import com.files.filesystem.enums.FileType;
 import com.files.filesystem.exceptions.FileException;
 import com.files.filesystem.files.FilesReaderFactory;
 import com.files.filesystem.files.FilesWriter;
+import com.files.filesystem.files.FilesWriterFactory;
 import com.files.filesystem.utils.FilesUtil;
 
 
@@ -21,7 +22,7 @@ public class XMLFilesWriterImplTest{
 	@org.junit.Test
 	public void writeFileTest() throws FileException {
 		FileType fileType =FilesUtil.getFileType(SAMPLE_DATA);
-		FilesWriter fileWriter = FilesReaderFactory.getFilesWriter(fileType);
+		FilesWriter fileWriter = FilesWriterFactory.getFilesWriter(fileType);
 		List<Map<String, String>> dataList = (List<Map<String, String>>) new XMLFilesReaderImpl().readFile(SAMPLE_DATA);	
 		boolean result = fileWriter.writeFile(dataList,"C:\\Users\\preeti.tiwari\\Documents\\Files\\sample_xml_file.xml", false);
 		assertTrue(result);

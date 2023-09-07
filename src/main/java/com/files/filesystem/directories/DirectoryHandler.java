@@ -15,5 +15,7 @@ public interface DirectoryHandler {
 	public List<String> listSubDirectories(String dirName) throws FileException;
 
 	public List<String> listFilesAndSubDirectories(String dirName) throws FileException;
+	
+	public boolean zipDirectory(String sourcePath);
 
 }

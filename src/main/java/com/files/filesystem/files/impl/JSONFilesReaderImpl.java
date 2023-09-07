@@ -24,11 +24,10 @@ public class JSONFilesReaderImpl implements FilesReader {
 						new TypeReference<List<Map<String, String>>>() {
 						});
 				return dataList;
-			} catch (IOException e) {
-				throw new FileException("Cannot read file", e);
+			} catch (IOException e){
+				throw new FileException("Cannot read file",e);
 			}
-		} else
+		}else
 			throw new FileException("File Not Found!", new RuntimeException());
 	}
-
 }

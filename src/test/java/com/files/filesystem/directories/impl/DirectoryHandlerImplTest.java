@@ -53,5 +53,12 @@ public class DirectoryHandlerImplTest {
 			System.out.println(str);
 		}
 	}
+	
+	@Test
+	public void zipDirectoryTest() throws FileException {
+		DirectoryHandler directoryHandler = new DirectoryHandlerImpl();
+		boolean result = directoryHandler.zipDirectory("C:/Users/preeti.tiwari/Documents/Files/Directory");
+		
+	}
 
 }
